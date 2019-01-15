@@ -1,0 +1,90 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+<title>注册</title>
+<link rel="stylesheet" type="text/css" href="/jquery.datepick.css">
+<script type="text/javascript" src="/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/jquery.datepick.js"></script>
+<script type="text/javascript" src="/jquery.datepick-zh-CN.jss"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$("#birthday").datepick({
+			dateFormat : "yy-mm-dd"
+		});
+	});
+
+	function add() {
+		$(".error").each(function(){
+			$(this).text("");
+		});
+		var bool = true;
+		if (!$(":text[name=userName]").val()) {
+			$("#userNameError").text("用户名不能为空");
+			bool = false;
+		}
+		if (!$(":passWord[name=passWord]").val()) {
+			$("#passWordError").text("密码不能为空");
+			bool = false;
+		}
+		if (!$(":passWord[name=passWordAgain]").val()) {
+			$("#passWordAgainError").text("确认密码不能为空");
+			 bool = false;
+		}else if($("#passWord").val()!=$("#passWordAgain").val()){
+             alert("两次输入的密码不一致");
+             bool = false;
+         }
+		if (!$(":text[name=address]").val()) {
+			$("#addressError").text("地址不能为空");
+			bool = false;
+		}
+		if (bool) {
+			$("form").submit();
+		}
+	}
+</script>
+</head>
+<body>
+	<div>
+		<h3>注册</h3>
+		<form method="post" action="/user/register.action">
+			<table>
+				<tr>
+					<td>用户名<input type="text" value="" name="userName"  placeholder="请输入用户名" id="userName"></td>
+					<td><label id="userNameError" class="error">&nbsp;</label></td>
+				</tr>
+				<tr>
+					<td>密码<input type="passWord" value="" name="passWord" placeholder="请输入密码" id="passWord"></td>
+					<td><label id="passWordError" class="error">&nbsp;</label>
+				</tr>
+				<tr>
+					<td>确认密码<input type="passWord" value="" name="passWordAgain" placeholder="请输入确认密码" id="passWordAgain">
+					<td><label id="passWordAgainError" class="error">&nbsp;</label>
+				</tr>
+				<tr>
+					<td><input type="radio" id="sex" name="sex" value="男"
+						checked="checked"> <label>男</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" id="sex" name="sex" value="女"> <label>女</label>
+				</tr>
+				<tr>
+					<td>生日 <input type="text" value="" name="birthday" id="birthday">
+				</tr>
+				<tr>
+					<td>地址 <input type="text" value="" name="address" id="address">
+					<td><label id="addressError" class="error">&nbsp;</label>
+				</tr>
+				<tr>
+					<td><input type="button" value="注册"  onclick="add()"
+						id="button" /><input type="reset" value="重置" /></td>
+				</tr>
+			</table>
+		</form>
+
+		<div>
+			已有帐号,请<a href="/login.html" class="link">登录</a>
+		</div>
+	</div>
+</body>
+</html>
+

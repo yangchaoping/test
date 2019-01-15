@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登录</title>
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#btn").click(function() {
+			var userName = $("#userName").val();
+			var passWord = $("#passWord").val();
+			if ($.trim(userName) == "") {
+				alert("姓名不能为空！");
+				return;
+			}
+			if ($.trim(passWord) == "") {
+				alert("密码不能为空！");
+				return;
+			}
+			$.ajax({
+				url : "http://localhost:8080/user/login.action",
+				data : "userName=" + userName + "&passWord=" + passWord,
+				dataType : "text",
+				type : "POST",
+				success : function(rs) {
+					 $("#errorMsg").text("");
+					if ($.trim(rs) == "succeed") {
+						alert("登录成功");
+						location.href = "/templates/index.html";
+					} else {
+						 $("#errorMsg").text("用户名或密码不正确");
+					}
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	
+		<div>
+			<form method="post" action="">
+				<table>
+					<tbody>
+						<tr>
+							<th>姓名</th>
+							<td><input id="userName" type="text" name="userName"
+								placeholder="请输入姓名"></td>
+							<td></td>
+						</tr>
+						<tr>
+							<th>密码</th>
+							<td><input id="passWord" type="passWord" name="passWord"
+								placeholder="请输入密码"></td>
+							<td></td>
+						</tr>
+						<tr>
+							<th></th>
+							<td><input type="button" id="btn" value="登  录"></td>
+							<td>&nbsp;&nbsp;&nbsp;<font color="red" id="errorMsg"></font></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+		<div >
+			<a href="register.html">立即注册</a>
+		</div>
+</body>
+</html>
